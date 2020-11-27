@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  img {
+    height: 600px;
+    width: 600px;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <p>滚动滑动条查看</p>
+  </div>
+  <h2>上面是图片</h2>
+
+
+
+  <script>
+    //关于首屏显示？操作dom插入优化，
+    (async function () {
+      //创建出所有的img图片
+      let app = document.getElementById('app')
+      async function loaddata() {
+        let res = await fetch('http://localhost:3009/api/v1/products?per=50')
+        let a = await res.json()
+        return a.products
+      }
+      let arr = await loaddata()
+      //Fragment  IE版本还不支持
+      let fragment = document.createDocumentFragment()
+      for (let i = 0; i < arr.length; i++) {
+        var ig = document.createElement('img')
+        ig.setAttribute('data-src', arr[i].coverImg)
+        fragment.appendChild(ig)
+      }
+      app.appendChild(fragment)
+      //判断是否显示
+      let imgs = document.querySelectorAll('img')
+      document.addEventListener('scroll', show)
+      function show() {
+        for (let i = 0; i < imgs.length; i++) {
+          if (imgs[i].offsetTop < scrollY + 600) {
+            let a = imgs[i].getAttribute('data-src')
+            imgs[i].setAttribute('src', a)
+            //图片是否显示
+            // console.log(imgs[i].complete);
+          }
+        }
+      }
+
+    })()
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

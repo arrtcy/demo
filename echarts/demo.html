@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.5.0-rc.2/echarts-en.common.js"></script>
+</head>
+
+<body>
+  <div id="demo" style="color: aqua;width: 300px;height: 300px;"></div>
+
+
+
+  <script>
+    var mychart = echarts.init(document.querySelector('#demo'))
+    console.log(mychart);
+
+    var options = {
+      title: { text: '这是一个表格' },
+      tooltip: {
+
+      },//提示框，
+      legend: {
+        data: ['人数']
+      },
+      xAxis: {
+        data: ['vue', 'react', 'angular', 'jQuery']
+      },
+      yAxis: {
+
+      },
+      series: [{
+        name: '人数',
+        type: 'bar',
+        data: [1500, 1000, 800, 2000]
+      }]
+    }
+
+
+
+    mychart.setOption(options)
+  </script>
+</body>
+
+</html>

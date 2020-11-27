@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0
+  }
+
+  img {
+    height: 600px;
+    width: 600px;
+    display: block;
+  }
+</style>
+
+<body>
+  <div id="app">
+
+  </div>
+
+  <script>
+    (async function () {
+      let app = document.getElementById('app')
+      var a = 1
+      async function loaddata() {
+        let res = await fetch('http://localhost:3009/api/v1/products?per=4&page=' + a)
+        let b = await res.json()
+        a++
+        let arr = b.products
+        let fragment = document.createDocumentFragment()
+        for (let i = 0; i < arr.length; i++) {
+          var ig = document.createElement('img')
+          ig.setAttribute('src', arr[i].coverImg)
+          fragment.appendChild(ig)
+        }
+        app.appendChild(fragment)
+      }
+
+      loaddata()
+
+      document.addEventListener('scroll', load())
+      function load() {
+        // console.log(scrollY + innerHeight);
+        // console.log(document.body.scrollHeight);
+        let timer = null
+        return function () {
+          if (scrollY + innerHeight > document.body.scrollHeight - 300) {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+              //因为接口太快，用延时器模仿一下长时间的请求，大于一秒的
+              loaddata()
+            }, 1000)
+          }
+        }
+      }
+
+
+
+    })()
+  </script>
+</body>
+
+</html>

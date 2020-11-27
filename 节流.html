@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>节流</title>
+</head>
+
+<body>
+  <button id="app">❍❍❍节流</button>
+  <button id="abb">防抖</button>
+  <script> 
+    window.onload = function () {
+      let jie = document.getElementById('app')
+      jie.addEventListener('click', debunce(respouse))
+
+      let dou = document.getElementById('abb')
+      dou.addEventListener('click', preventdou(awfawfa))
+    }
+
+    //节流 指定时间间隔内只会执行一次任务
+    function debunce(fn) {
+      let flag = true
+      return function () {
+        if (!flag) {
+          return
+        }
+        flag = false
+        setTimeout(() => {
+          fn()
+          flag = true
+        }, 1000);
+      }
+    }
+    function respouse() {
+      console.log('节流成功');
+    }
+
+
+
+
+    //防抖 --任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。
+    function preventdou(fn) {
+      let timer = ''
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn()
+        }, 1000);
+      }
+    }
+    function awfawfa() {
+      console.log('防抖成功');
+    }
+  </script>
+
+</body>
+
+</html>

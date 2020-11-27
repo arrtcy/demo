@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.5.0-rc.2/echarts-en.common.js"></script>
+</head>
+
+<body>
+  <div id="demo" style="color: aqua;width: 300px;height: 300px;margin: 50px;padding: 20px;"></div>
+
+
+
+  <script>
+    var mychart = echarts.init(document.querySelector('#demo'))
+
+    var options = {
+      title: { text: '这是一个表格' },
+      tooltip: {
+        trigger: 'xAxis',
+        formatter: function (params) {
+          console.log(params);
+          return '鼠标悬停'
+        },
+        axisPointer: {
+          animation: false
+        }
+      },//提示框，
+      xAxis: {
+        type: 'time',
+        //网格线是否显示
+        splitLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+        //坐标轴留白
+        boundarGap: [0, '100%']
+      },
+      series: [{
+        name: '股票',
+        type: 'line',
+        data: [
+          { name: '股票', value: ['小明', 500] },
+          { name: '大', value: ['小红', 2000] },
+          { name: '小', value: ['小辉', 1500] },
+
+        ]
+      }]
+    }
+
+
+
+    mychart.setOption(options)
+  </script>
+</body>
+
+</html>
